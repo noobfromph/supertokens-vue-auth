@@ -113,18 +113,18 @@ export class SuperTokens {
             },
             watch: {
                 $route (to){
-                    if (to.path != currentOptions.websiteBasePath) {
-                         supertokens.doesSessionExist().then(signedIn => {
-                            if (!signedIn) {
-                                router.push({
-                                    name: 'auth',
-                                    params: {
-                                        options: currentOptions
-                                    }
-                                });
-                            }
-                         });
-                    }
+                    if (to.path === currentOptions.websiteBasePath) return;
+                    
+                    supertokens.doesSessionExist().then(signedIn => {
+                        if (!signedIn) {
+                            router.push({
+                                name: 'auth',
+                                params: {
+                                    options: currentOptions
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
